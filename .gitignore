@@ -9,3 +9,5 @@ instance/
 *.db
 *.log
 migrations/
+
+.vscode/*
