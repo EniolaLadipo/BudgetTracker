@@ -8,6 +8,7 @@ load_dotenv()
 
 allowed_origins = os.getenv("ORIGINS_ALLOWED")
 
+
 def start():
     app = create_app(config=Config)
     CORS(

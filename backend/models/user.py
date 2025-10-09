@@ -1,6 +1,7 @@
 from __init__ import db
 from datetime import datetime
 
+
 class User(db.Model):
     __tablename__ = "users"
     __table_args__ = {"extend_existing": True}
@@ -14,5 +15,6 @@ class User(db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "password_hash": self.password_hash
+            "password_hash": self.password_hash,
+            "created_at": self.created_at
         }
