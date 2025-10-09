@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import FormCard from '../components/FormCard';
+import { config } from '../utils/config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -24,14 +25,14 @@ const Register = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
+      const response = await fetch(`${config.apiBackend}/register`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          username, 
-          password 
+          username, password
         })
       });
       
@@ -39,11 +40,8 @@ const Register = () => {
         const data = await response.json();
         
         console.log("Account successfully created");
-        
-        localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('from', 'Register');
-        
+        console.log("Message: ", data.message)
+        console.log("User ID: ", data.user_id)
         setUsername('');
         setPassword('');
 

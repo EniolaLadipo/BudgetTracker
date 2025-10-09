@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormInput from '../components/FormInput';
 import FormCard from '../components/FormCard';
+import { config } from '../utils/config';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -23,11 +24,12 @@ const Login = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const response = await fetch(`${config.apiBackend}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ 
           username, 
           password 
