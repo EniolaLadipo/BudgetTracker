@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from models.model import User
+from backend.models.user import User
 from __init__ import db
 
 def register_new_user(username, password):
