@@ -16,5 +16,5 @@ class User(db.Model):
             "id": self.id,
             "username": self.username,
             "password_hash": self.password_hash,
-            "created_at": self.created_at
+            "created_at": self.created_at,
         }
