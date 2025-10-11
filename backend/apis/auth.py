@@ -31,7 +31,7 @@ def create_account():
 
     except Exception as e:
         db.session.rollback()
-        print("Error occured: ", e)
+        print("Error occurred: ", e)
         return jsonify({"error": "Failed to register new user"}), 500
 
 

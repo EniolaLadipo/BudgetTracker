@@ -1,5 +1,5 @@
 from __init__ import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class User(db.Model):
@@ -9,7 +9,9 @@ class User(db.Model):
     id = db.Column(db.Integer(), unique=True, primary_key=True, autoincrement=True)
     username = db.Column(db.String(), unique=True, nullable=False)
     password_hash = db.Column(db.String(), nullable=False)
-    created_at = db.Column(db.Datetime, default=datetime.now)
+    created_at = db.Column(
+        db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)
+    )
 
     def __repr__(self):
         return {

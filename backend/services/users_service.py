@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from backend.models.user import User
+from models.user import User
 from __init__ import db
 
 
