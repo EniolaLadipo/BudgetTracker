@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from services.users_service import register_new_user, verify_account
-from __init__ import db
+from backend.services.users_service import register_new_user, verify_account
+from backend import db
 from flask_jwt_extended import (
     create_access_token,
     set_access_cookies,

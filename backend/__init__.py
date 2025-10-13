@@ -10,8 +10,8 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
 
-    from apis.auth import bp as auth_bp
-    from apis.dashboard import bp as dashboard_bp
+    from backend.apis.auth import bp as auth_bp
+    from backend.apis.dashboard import bp as dashboard_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp)

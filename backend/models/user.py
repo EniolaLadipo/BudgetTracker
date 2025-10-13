@@ -1,4 +1,4 @@
-from __init__ import db
+from backend import db
 from datetime import datetime, timezone
 
 
