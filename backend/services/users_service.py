@@ -22,3 +22,8 @@ def verify_account(username, password):
         return user
     else:
         return None
+
+
+def check_user_exists(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    return user

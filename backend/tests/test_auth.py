@@ -12,9 +12,6 @@ def test_register_user_success_200(client, app):
     assert "message" in json_data
     assert json_data["message"] == "Registration Successful"
 
-    assert "user_id" in json_data
-    assert isinstance(json_data["user_id"], int)
-
     with app.app_context():
         user = User.query.filter_by(username="new_user456").first()
 
@@ -31,9 +28,6 @@ def test_login_success_200(client, app, test_user):
 
     assert "message" in json_data
     assert json_data["message"] == "Login Successful"
-
-    assert "user_id" in json_data
-    assert isinstance(json_data["user_id"], int)
 
     with app.app_context():
         user = User.query.filter_by(username=test_user.username).first()

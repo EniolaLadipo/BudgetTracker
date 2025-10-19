@@ -1,5 +1,5 @@
-from __init__ import db
-from datetime import datetime
+from backend import db
+from datetime import datetime, timezone
 
 
 class Transaction(db.Model):
@@ -12,12 +12,12 @@ class Transaction(db.Model):
     item = db.Column(db.String(), nullable=False)
     amount = db.Column(db.Float(), nullable=False)
     category = db.Column(db.String(), nullable=False)
-    created_at = db.Column(db.Datetime, default=datetime.now)
+    created_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.now(timezone.utc)
+    )
 
-    def __repr__(self):
+    def to_dict(self):
         return {
-            "id": self.id,
-            "user_id": self.user_id,
             "item": self.item,
             "amount": self.amount,
             "category": self.category,

@@ -14,9 +14,17 @@ class User(db.Model):
     )
 
     def __repr__(self):
+        return f"""
+            {self.id},
+            {self.username},
+            {self.password_hash},
+            {self.created_at}
+        """
+
+    def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
             "password_hash": self.password_hash,
-            "created_at": self.created_at,
+            "created_at": self.created_at.isoformat(),
         }
