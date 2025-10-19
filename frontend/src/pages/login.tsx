@@ -39,7 +39,6 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         
-        console.log("Logged in successfully");
         
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('user_id', data.user_id);

@@ -1,12 +1,13 @@
 from dotenv import load_dotenv
 from flask_cors import CORS
-from config import Config
-from __init__ import create_app
+from backend.config import Config
+from backend import create_app
 import os
 
 load_dotenv()
 
 allowed_origins = os.getenv("ORIGINS_ALLOWED")
+
 
 def start():
     app = create_app(config=Config)

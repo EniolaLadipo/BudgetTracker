@@ -1,19 +1,18 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from models.model import User
-from __init__ import db
+from backend.models.user import User
+from backend import db
+
 
 def register_new_user(username, password):
 
     hashed = generate_password_hash(password)
-    new_user = User(
-        username=username,
-        password_hash=hashed
-    )
+    new_user = User(username=username, password_hash=hashed)
 
     db.session.add(new_user)
     db.session.commit()
 
     return new_user
+
 
 def verify_account(username, password):
 
@@ -23,3 +22,8 @@ def verify_account(username, password):
         return user
     else:
         return None
+
+
+def check_user_exists(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    return user

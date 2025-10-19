@@ -1,0 +1,30 @@
+from backend import db
+from datetime import datetime, timezone
+
+
+class User(db.Model):
+    __tablename__ = "users"
+    __table_args__ = {"extend_existing": True}
+
+    id = db.Column(db.Integer(), unique=True, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(), unique=True, nullable=False)
+    password_hash = db.Column(db.String(), nullable=False)
+    created_at = db.Column(
+        db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)
+    )
+
+    def __repr__(self):
+        return f"""
+            {self.id},
+            {self.username},
+            {self.password_hash},
+            {self.created_at}
+        """
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "password_hash": self.password_hash,
+            "created_at": self.created_at.isoformat(),
+        }

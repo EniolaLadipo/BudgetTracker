@@ -1,1 +1,1 @@
-delete from users where 
+DROP TABLE users;
