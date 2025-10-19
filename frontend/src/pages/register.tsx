@@ -40,8 +40,7 @@ const Register = () => {
         const data = await response.json();
         
         console.log("Account successfully created");
-        console.log("Message: ", data.message)
-        console.log("User ID: ", data.user_id)
+        console.log('Message: ', data.message)
         setUsername('');
         setPassword('');
 
@@ -54,7 +53,7 @@ const Register = () => {
 
     } catch (error) {
       console.error('Error occurred', error);
-      setMessage('Network error. Please try again.');
+      setMessage('Network error... Please try again');
     } finally {
       setIsLoading(false);
     }
