@@ -18,7 +18,7 @@ def get_user_transactions():
     try:
         transactions = get_transactions(current_user_id)
 
-        if not transactions:
+        if transactions is None:
             return jsonify({"error": "User does not exist"}), 400
 
         return jsonify(transactions), 200
@@ -45,15 +45,41 @@ def add_user_transaction():
 
             add_transaction(current_user_id, item, amount, category)
 
+            db.session.commit()
+
             response = {"message": "Transaction Added Successfully"}
             return jsonify(response), 200
 
         else:
 
-            response = {"message": "Invalid Field Values"}
+            response = {"error": "Invalid Field Values"}
             return jsonify(response), 400
 
     except Exception as e:
         db.session.rollback()
         print(f"Error occurred: {e}")
         return jsonify({"error": "Failed to add new user transaction"}), 500
+
+
+@bp.route("/transaction/delete", methods=["DELETE"])
+@jwt_required()
+def delete_transaction():
+    current_user_id = int(get_jwt_identity())
+
+    try:
+
+        data = request.get_json()
+
+        transaction_id = data.get("transaction_id")
+
+        delete_transaction(current_user_id, transaction_id)
+
+        db.session.commit()
+
+        response = {"message": "Transaction deleted successfully"}
+        return jsonify(response), 200
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error occurred: {e}")
+        return jsonify({"error": "Failed to delete user transaction"}), 500
