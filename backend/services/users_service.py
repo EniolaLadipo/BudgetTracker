@@ -3,18 +3,31 @@ from backend.models.user import User
 from backend import db
 
 
-def register_new_user(username, password):
+def get_user(username: str) -> User | None:
+    user = User.query.filter_by(username=username).first()
+
+    if not user:
+        return None
+
+    return user
+
+
+def register_new_user(username: str, password: str) -> User | None:
 
     hashed = generate_password_hash(password)
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        return None
+
     new_user = User(username=username, password_hash=hashed)
 
     db.session.add(new_user)
-    db.session.commit()
-
     return new_user
 
 
-def verify_account(username, password):
+def verify_account(username: str, password: str) -> User | None:
 
     user = User.query.filter_by(username=username).first()
 
@@ -24,6 +37,6 @@ def verify_account(username, password):
         return None
 
 
-def check_user_exists(user_id):
+def check_user_exists(user_id: int) -> User | None:
     user = User.query.filter_by(id=user_id).first()
     return user

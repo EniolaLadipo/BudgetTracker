@@ -18,7 +18,9 @@ class Transaction(db.Model):
 
     def to_dict(self):
         return {
+            "id": self.id,
             "item": self.item,
             "amount": self.amount,
             "category": self.category,
+            "created_at": self.created_at.strftime("%b %d, %Y %I:%M %p"),
         }

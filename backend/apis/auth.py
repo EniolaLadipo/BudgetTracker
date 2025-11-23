@@ -18,14 +18,21 @@ def create_account():
         username = data.get("username")
         password = data.get("password")
 
-        new_user = register_new_user(username, password)
-        access_token = create_access_token(identity=str(new_user.id))
+        result = register_new_user(username, password)
 
-        response = jsonify({"message": "Registration Successful"})
+        if not result:
+            return jsonify({"error": "Account already exists"}), 400
 
-        set_access_cookies(response, access_token)
+        else:
+            db.session.commit()
 
-        return response, 200
+            access_token = create_access_token(identity=str(result.id))
+
+            response = jsonify({"message": "Registration Successful"})
+
+            set_access_cookies(response, access_token)
+
+            return response, 200
 
     except Exception as e:
         db.session.rollback()
@@ -46,18 +53,14 @@ def login():
         if user:
             access_token = create_access_token(identity=str(user.id))
 
-            response = jsonify(
-                {
-                    "message": "Login Successful",
-                }
-            )
+            response = jsonify({"message": "Login Successful"})
 
             set_access_cookies(response, access_token)
 
             return response, 200
 
         else:
-            return jsonify({"message": "Username or Password were incorrect"}), 400
+            return jsonify({"error": "Username or Password were incorrect"}), 400
 
     except Exception as e:
         db.session.rollback()
